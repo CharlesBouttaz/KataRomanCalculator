@@ -7,11 +7,11 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 public final class RomCalcTest {
 
-    private RomCalc romCalc;
+    private RomanCalculator romCalc;
 
     @Before
     public void setUp() {
-        romCalc = new RomCalc();
+        romCalc = new RomanCalculator();
     }
 
     @Test(expected = IllegalArgumentException.class)

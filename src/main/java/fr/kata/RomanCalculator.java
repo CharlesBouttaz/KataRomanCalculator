@@ -1,6 +1,6 @@
 package fr.kata;
 
-class RomCalc {
+class RomanCalculator {
 
 
     private final char[] romanValues = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};

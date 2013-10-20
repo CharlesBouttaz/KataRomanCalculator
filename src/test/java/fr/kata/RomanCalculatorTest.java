@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public final class RomCalcTest {
+public final class RomanCalculatorTest {
 
     private RomanCalculator romCalc;
 

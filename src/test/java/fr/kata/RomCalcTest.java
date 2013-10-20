@@ -7,14 +7,6 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 public final class RomCalcTest {
 
-//    I : 1
-//    V : 5
-//    X : 10
-//    L : 50
-//    C : 100
-//    D : 500
-//    M : 1000
-
     private RomCalc romCalc;
 
     @Before
@@ -63,7 +55,6 @@ public final class RomCalcTest {
     public void should_transform_limit_case() {
         assertThat(romCalc.add("III", "III")).isEqualTo("VI");
         assertThat(romCalc.add("CLIII", "III")).isEqualTo("CLVI");
-        //Assertions.assertThat(romCalc.add("CXXXI", "XXXIV")).isEqualTo("CLXV");
         assertThat(romCalc.add("CCCVI", "CXXII")).isEqualTo("CDXXVIII");
         assertThat(romCalc.add("CCCVI", "CCXXII")).isEqualTo("DXXVIII");
     }

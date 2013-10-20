@@ -1,6 +1,6 @@
 package fr.kata;
 
-public class RomCalc {
+class RomCalc {
 
     //    I : 1
     //    V : 5
@@ -35,25 +35,13 @@ public class RomCalc {
         result = factorisation(result);
         System.out.println("Factorisation =               " + result);
 
+        result = replaceForbiddenDoubles(result);
+        System.out.println("replaceForbiddenDoubles =     " + result);
+
         result = replaceSubstractivesRevert(result);
         System.out.println("Substractives restoration =   " + result);
 
-
         return result;
-    }
-
-    private String factorisation(String input) {
-        for (int i = 0; i < romanValues.length - 1; i++) {
-            String currRomanString = String.valueOf(romanValues[i]);
-            String pattern = currRomanString + currRomanString + currRomanString + currRomanString + currRomanString;
-            char replacement = romanValues[i + 1];
-            if (input.contains(pattern)) {
-                int patternIndex = input.indexOf(pattern);
-                input = input.replaceFirst(pattern, "");
-                input = insertCharAtPosition(input, replacement, patternIndex);
-            }
-        }
-        return input;
     }
 
     private void validateRomanNumber(String a) {
@@ -70,42 +58,10 @@ public class RomCalc {
         }
     }
 
-    private String replaceForbiddenDoubles(String roman) {
-
-        roman = mergeSubstractives(roman);
-
-        for (int i = 0; i < romanSingles.length; i++) {
-            roman = replaceNumerals(roman, romanSingles[i], romanSinglesEquiv[i]);
-        }
-
-        System.out.println("Replace forbidden doubles =   " + roman);
-
-        return roman;
-    }
-
-    private String mergeSubstractives(String roman) {
-        roman = replaceNumerals(roman, "IVI", "V");
-        roman = replaceNumerals(roman, "IXI", "X");
-        roman = replaceNumerals(roman, "XLX", "L");
-        roman = replaceNumerals(roman, "XCX", "C");
-        roman = replaceNumerals(roman, "CDC", "D");
-        roman = replaceNumerals(roman, "CMC", "M");
-        return roman;
-    }
-
     private String replaceSubstractives(String a) {
         for (int i = 0; i < romanSubstractives.length; i++) {
             if (a.contains(romanSubstractives[i])) {
                 a = a.replaceAll(romanSubstractives[i], romanSubstractivesEquiv[i]);
-            }
-        }
-        return a;
-    }
-
-    private String replaceSubstractivesRevert(String a) {
-        for (int i = 0; i < romanSubstractivesEquiv.length; i++) {
-            if (a.contains(romanSubstractivesEquiv[i])) {
-                a = a.replaceAll(romanSubstractivesEquiv[i], romanSubstractives[i]);
             }
         }
         return a;
@@ -129,9 +85,7 @@ public class RomCalc {
     }
 
     private String insertCharAtPosition(String input, char charToInsert, int charIndex) {
-        String res = input.substring(0, charIndex) + charToInsert + input.substring(charIndex, input.length());
-        res = replaceForbiddenDoubles(res);
-        return res;
+        return input.substring(0, charIndex) + charToInsert + input.substring(charIndex, input.length());
     }
 
     private String insertNewCharAtOrderedPosition(String input, char charToInsert) {
@@ -158,11 +112,41 @@ public class RomCalc {
         return charIndex;
     }
 
+    private String factorisation(String input) {
+        for (int i = 0; i < romanValues.length - 1; i++) {
+            String currRomanString = String.valueOf(romanValues[i]);
+            String pattern = currRomanString + currRomanString + currRomanString + currRomanString + currRomanString;
+            char replacement = romanValues[i + 1];
+            if (input.contains(pattern)) {
+                int patternIndex = input.indexOf(pattern);
+                input = input.replaceFirst(pattern, "");
+                input = insertCharAtPosition(input, replacement, patternIndex);
+            }
+        }
+        return input;
+    }
+
+    private String replaceForbiddenDoubles(String roman) {
+        for (int i = 0; i < romanSingles.length; i++) {
+            roman = replaceNumerals(roman, romanSingles[i], romanSinglesEquiv[i]);
+        }
+        return roman;
+    }
+
     private String replaceNumerals(String orderedResult, String patternToFind, String patternToReplace) {
         if (orderedResult.contains(patternToFind)) {
             orderedResult = orderedResult.replace(patternToFind, patternToReplace);
             orderedResult = replaceNumerals(orderedResult, patternToFind, patternToReplace);
         }
         return orderedResult;
+    }
+
+    private String replaceSubstractivesRevert(String a) {
+        for (int i = 0; i < romanSubstractivesEquiv.length; i++) {
+            if (a.contains(romanSubstractivesEquiv[i])) {
+                a = a.replaceAll(romanSubstractivesEquiv[i], romanSubstractives[i]);
+            }
+        }
+        return a;
     }
 }

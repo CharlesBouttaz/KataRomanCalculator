@@ -15,7 +15,7 @@ public final class RomCalcTest {
 //    D : 500
 //    M : 1000
 
-    RomCalc romCalc;
+    private RomCalc romCalc;
 
     @Before
     public void setUp() {

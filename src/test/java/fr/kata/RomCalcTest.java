@@ -27,28 +27,38 @@ public final class RomCalcTest {
     @Test
     public void should_group_same_letters() {
         assertThat(romCalc.add("XXII", "XI")).isEqualTo("XXXIII");
-    }
-
-    @Test
-    public void should_insert_at_correct_position() {
-        assertThat(romCalc.add("MVI", "CX")).isEqualTo("MCXVI");
-    }
-
-    @Test
-    public void should_insert_at_correct_position_and_index_zero() {
-        assertThat(romCalc.add("XVI", "C")).isEqualTo("CXVI");
-    }
-
-    @Test
-    public void should_group_same_letters_() {
         assertThat(romCalc.add("XXII", "XVI")).isEqualTo("XXXVIII");
         assertThat(romCalc.add("XVI", "XXII")).isEqualTo("XXXVIII");
     }
 
     @Test
-    public void should_transform_more_thant_tree_I_into_new_number() {
-        assertThat(romCalc.add("XII", "II")).isEqualTo("XIV");
-        assertThat(romCalc.add("II", "XII")).isEqualTo("XIV");
+    public void should_regroup_romans_in_correct_order() {
+        assertThat(romCalc.add("MVI", "CX")).isEqualTo("MCXVI");
+    }
+
+    @Test
+    public void should_regroup_romans_in_correct_order_even_first_one() {
+        assertThat(romCalc.add("XVI", "C")).isEqualTo("CXVI");
+    }
+
+    @Test
+    public void should_transform_four_of_a_kind_into_substractive() {
+        assertThat(romCalc.add("II", "II")).isEqualTo("IV");
+        assertThat(romCalc.add("VIII", "I")).isEqualTo("IX");
+        assertThat(romCalc.add("XXX", "X")).isEqualTo("XL");
+        assertThat(romCalc.add("LXX", "XX")).isEqualTo("XC");
+        assertThat(romCalc.add("C", "CCC")).isEqualTo("CD");
+        assertThat(romCalc.add("DC", "CCC")).isEqualTo("CM");
+    }
+
+    @Test
+    public void should_merge_substractives_plus_one() {
+        assertThat(romCalc.add("IV", "I")).isEqualTo("V");
+        assertThat(romCalc.add("IX", "I")).isEqualTo("X");
+        assertThat(romCalc.add("XL", "X")).isEqualTo("L");
+        assertThat(romCalc.add("XC", "X")).isEqualTo("C");
+        assertThat(romCalc.add("CD", "C")).isEqualTo("D");
+        assertThat(romCalc.add("CM", "C")).isEqualTo("M");
     }
 
     @Test
@@ -57,16 +67,6 @@ public final class RomCalcTest {
         assertThat(romCalc.add("CLIII", "III")).isEqualTo("CLVI");
         assertThat(romCalc.add("CCCVI", "CXXII")).isEqualTo("CDXXVIII");
         assertThat(romCalc.add("CCCVI", "CCXXII")).isEqualTo("DXXVIII");
-    }
-
-    @Test
-    public void should_merge_substractives() {
-        assertThat(romCalc.add("IV", "I")).isEqualTo("V");
-        assertThat(romCalc.add("IX", "I")).isEqualTo("X");
-        assertThat(romCalc.add("XL", "X")).isEqualTo("L");
-        assertThat(romCalc.add("XC", "X")).isEqualTo("C");
-        assertThat(romCalc.add("CD", "C")).isEqualTo("D");
-        assertThat(romCalc.add("CM", "C")).isEqualTo("M");
     }
 
     @Test

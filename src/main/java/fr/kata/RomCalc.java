@@ -20,7 +20,7 @@ class RomCalc {
 
         a = replaceSubstractives(a);
         b = replaceSubstractives(b);
-        System.out.println("Substractives replacement = " + a + " + " + b);
+        System.out.println("Substractives replaced =      " + a + " + " + b);
 
         String result = regroupNumbers(a, b);
         System.out.println("Regroupement =                " + result);
